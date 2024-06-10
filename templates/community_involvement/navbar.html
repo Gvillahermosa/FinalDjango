@@ -1,0 +1,20 @@
+<div class="search-container">
+    <div class="search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <input class="search" type="text" placeholder="Search...">
+    <p class="login">
+        {% if user.is_authenticated %}
+    <div class="dropdown">
+        <a href="#" class="dropdown-link" id="username">Hi, {{ user.first_name }} {{ user.last_name }}</a>
+        <div class="dropdown-content">
+            <a href="#">Help & Support</a>
+            <a href="{% url 'custom_user:logout' %}">Logout</a>
+        </div>
+    </div>
+    {% else %}
+    <a href="{% url 'custom_user:index' %}" class="login-link">Log In | </a>
+    <a href="{% url 'custom_user:register' %}" class="signup-link">Sign up</a>
+    {% endif %}
+    </p>
+</div>

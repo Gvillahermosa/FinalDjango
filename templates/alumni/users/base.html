@@ -5,7 +5,9 @@
   <link rel="shortcut icon" type="x-icon" href="{% static 'studentlife/images/CTU_logo.png' %}">
   <title>STUDENT LIFE INFORMATION SYSTEM</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -63,7 +65,7 @@
   </script>
 
   <link rel="stylesheet" type="text/css" href="/static/alumni/users/styles.css">
-  
+
 </head>
 
 <body>
@@ -126,11 +128,13 @@
             <span class="fas fa-caret-down fifth"></span>
           </a>
           <ul class="guide-show">
-            <li><a href="{% url 'studentLife_system:Individual Profile'%}">Individual Profile with Guidance Concern</a></li>
-            <li><a href="{% url 'studentLife_system:Counseling App With Scheduler'%}">Counseling App with Scheduler</a></li>
+            <li><a href="{% url 'studentLife_system:Individual Profile'%}">Individual Profile with Guidance Concern</a>
+            </li>
+            <li><a href="{% url 'studentLife_system:Counseling App With Scheduler'%}">Counseling App with Scheduler</a>
+            </li>
             <li><a href="{% url 'studentLife_system:Exit Interview'%}">Exit Interview</a></li>
             <li><a href="{% url 'studentLife_system:OJT Assessment'%}">OJT Assessments/Psychological Issuance</a></li>
-        </ul>
+          </ul>
         </li>
         <li><a href="#" class="alumni-btn">ALUMNI
             <span class="fas fa-caret-down sixth"></span>
@@ -141,7 +145,7 @@
             <li><a href="{% url 'studentLife_system:alumni_events' %}">Alumni Reunion and Events</a></li>
             <li><a href="{% url 'studentLife_system:jobfairs' %}">Job Fairs</a></li>
             <li><a href="{% url 'studentLife_system:yearbook' %}">Digital Yearbook</a></li>
-            
+
           </ul>
         </li>
         <li><a href="#" class="community-btn">COMMUNITY INVOLVEMENT
@@ -149,7 +153,19 @@
           </a>
           <ul class="community-show">
 
-
+            {% if user %}
+            <li><a href="{% url 'studentLife_system:program-form' %}">Events (Admin)</a></li>
+            <li><a href="{% url 'studentLife_system:project-form' %}">Crowd Funding Project (Admin)</a></li>
+            {% else %}
+            {% endif %}
+            <li><a href="{% url 'studentLife_system:programs' %}">Events</a></li>
+            <li><a href="{% url 'studentLife_system:projects' %}">CrowdFunding Projects</a></li>
+            {% if user %}
+            <li><a href="{% url 'studentLife_system:donation-validate' %}">Donation Validates</a></li>
+            <li><a href="{% url 'studentLife_system:donation_dashboard' %}">Donations</a></li>
+            <li><a href="{% url 'studentLife_system:reports' %}">Transaction Reports</a></li>
+            {% else %}
+            {% endif %}
           </ul>
         </li>
         <li><a href="#" class="student_org-btn">STUDENT ORGANIZATION
@@ -182,18 +198,18 @@
     <input type="text" placeholder="Search...">
     <p class="login">
       {% if user.is_authenticated %}
-      <div class="dropdown">
-          <a href="#" class="dropdown-link" id="username">Hi, {{ user.first_name }} {{ user.last_name }}</a>
-          <div class="dropdown-content">
-              <a href="#">Help & Support</a>
-              <a href="{% url 'custom_user:logout' %}">Logout</a>
-          </div>
+    <div class="dropdown">
+      <a href="#" class="dropdown-link" id="username">Hi, {{ user.first_name }} {{ user.last_name }}</a>
+      <div class="dropdown-content">
+        <a href="#">Help & Support</a>
+        <a href="{% url 'custom_user:logout' %}">Logout</a>
       </div>
-      {% else %}
-      <a href="{% url 'custom_user:index' %}" class="login-link">Log In | </a> 
-      <a href="{% url 'custom_user:register' %}" class="signup-link">Sign up</a>
-      {% endif %}
-  </p>
+    </div>
+    {% else %}
+    <a href="{% url 'custom_user:index' %}" class="login-link">Log In | </a>
+    <a href="{% url 'custom_user:register' %}" class="signup-link">Sign up</a>
+    {% endif %}
+    </p>
   </div>
 
   </nav>
@@ -203,7 +219,7 @@
   {% endblock %}
 
   <script src="{% static 'studentlife/newmain.js' %}"></script>
-    
+
   </script>
 </body>
 

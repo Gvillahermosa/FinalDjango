@@ -53,7 +53,8 @@
                     <ul class="jobplace-show">
                         <li><a href="{% url 'jobplacement:ojt_hiring' %}">OJT Hiring</a></li>
                         <li><a href="{% url 'jobplacement:seminar_page' %}">Career Guidance Tracker</a></li>
-                        <li><a href="{% url 'jobplacement:ojt_requirements_tracker' %}">OJT Requirements Tracker</a></li>
+                        <li><a href="{% url 'jobplacement:ojt_requirements_tracker' %}">OJT Requirements Tracker</a>
+                        </li>
                         {% if request.user.is_staff %}
                         <li><a href="{% url 'jobplacement:non_acad' %}">Non-Academic Award Issuance</a></li>
                         <li><a href="{% url 'jobplacement:job_trans_rep' %}">Transaction Reports</a></li>
@@ -66,10 +67,10 @@
                         {% endif %}
                         <!-- <li><a href="{% url 'jobplacement:admin_login' %}">Admin Login</a></li> -->
                         {% if request.user.is_authenticated %}
-                            <li><a href="{% url 'jobplacement:logout_user' %}">Logout</a></li>
+                        <li><a href="{% url 'jobplacement:logout_user' %}">Logout</a></li>
                         {% endif %}
-                </ul>
-            </li>
+                    </ul>
+                </li>
                 <li><a href="#" class="student_disc-btn">STUDENT DISCIPLINE
                         <span class="fas fa-caret-down fourth"></span>
                     </a>
@@ -85,54 +86,67 @@
                         <span class="fas fa-caret-down fifth"></span>
                     </a>
                     <ul class="guide-show">
-                        <li><a href="{% url 'studentLife_system:Individual Profile'%}">Individual Profile with Guidance Concern</a></li>
-                        <li><a href="{% url 'studentLife_system:Counseling App With Scheduler'%}">Counseling App with Scheduler</a></li>
+                        <li><a href="{% url 'studentLife_system:Individual Profile'%}">Individual Profile with Guidance
+                                Concern</a></li>
+                        <li><a href="{% url 'studentLife_system:Counseling App With Scheduler'%}">Counseling App with
+                                Scheduler</a></li>
                         <li><a href="{% url 'studentLife_system:Exit Interview'%}">Exit Interview</a></li>
-                        <li><a href="{% url 'studentLife_system:OJT Assessment'%}">OJT Assessments/Psychological Issuance</a></li>
+                        <li><a href="{% url 'studentLife_system:OJT Assessment'%}">OJT Assessments/Psychological
+                                Issuance</a></li>
                     </ul>
                 </li>
-                    <li><a href="#" class="alumni-btn">ALUMNI
+                <li><a href="#" class="alumni-btn">ALUMNI
                         <span class="fas fa-caret-down sixth"></span>
-                      </a>
-                      <ul class="alumni-show">
+                    </a>
+                    <ul class="alumni-show">
                         <li><a href="{% url 'studentLife_system:idRequest' %}">Alumni ID Requests</a></li>
                         <li><a href="{% url 'studentLife_system:graduateTracer' %}">Graduate Tracer</a></li>
                         <li><a href="{% url 'studentLife_system:alumni_events' %}">Alumni Reunion and Events</a></li>
                         <li><a href="{% url 'studentLife_system:jobfairs' %}">Job Fairs</a></li>
                         <li><a href="{% url 'studentLife_system:yearbook' %}">Digital Yearbook</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#" class="community-btn">COMMUNITY INVOLVEMENT
+                    </ul>
+                </li>
+                <li><a href="#" class="community-btn">COMMUNITY INVOLVEMENT
                         <span class="fas fa-caret-down seventh"></span>
-                      </a>
-                      <ul class="community-show">
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">CrowdFunding Projects</a></li>
-                        <li><a href="#">Donatio App</a></li>
-                        <li><a href="#">Transaction Reports</a></li>
-            
-                      </ul>
-                    </li>
-                    <li><a href="#" class="student_org-btn">STUDENT ORGANIZATION
+                    </a>
+                    <ul class="community-show">
+                        {% if user %}
+                        <li><a href="{% url 'studentLife_system:program-form' %}">Events (Admin)</a></li>
+                        <li><a href="{% url 'studentLife_system:project-form' %}">Crowd Funding Project (Admin)</a></li>
+                        {% else %}
+                        {% endif %}
+                        <li><a href="{% url 'studentLife_system:programs' %}">Events</a></li>
+                        <li><a href="{% url 'studentLife_system:projects' %}">CrowdFunding Projects</a></li>
+                        {% if user %}
+                        <li><a href="{% url 'studentLife_system:donation-validate' %}">Donation Validates</a></li>
+                        <li><a href="{% url 'studentLife_system:donation_dashboard' %}">Donations</a></li>
+                        <li><a href="{% url 'studentLife_system:reports' %}">Transaction Reports</a></li>
+                        {% else %}
+                        {% endif %}
+
+                    </ul>
+                </li>
+                <li><a href="#" class="student_org-btn">STUDENT ORGANIZATION
                         <span class="fas fa-caret-down eight"></span>
-                      </a>
-                      <ul class="student_org-show">
+                    </a>
+                    <ul class="student_org-show">
                         <li><a href="#">Org Profile</a></li>
                         <li><a href="#">Projects and Accomplishments</a></li>
                         <li><a href="#">Financial Statements Reports</a></li>
                         <li><a href="#">Accreditation Application</a></li>
                         <li><a href="#">Transaction Reports</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#" class="medical-btn">MEDICAL
+                    </ul>
+                </li>
+                <li><a href="#" class="medical-btn">MEDICAL
                         <span class="fas fa-caret-down ninth"></span>
-                      </a>
-                      <ul class="medical-show">
-                        <li><a href="{% url 'medicalv2:upload_requirements' %}">Student Medical Requirements Tracker</a></li>
+                    </a>
+                    <ul class="medical-show">
+                        <li><a href="{% url 'medicalv2:upload_requirements' %}">Student Medical Requirements Tracker</a>
+                        </li>
                         <li><a href="{% url 'medicalv2:request' %}">Medical Form Request</a></li>
                         <li><a href="{% url 'medicalv2:dentalservice' %}">Dental Services</a></li>
-                      </ul>
-                    </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
@@ -142,7 +156,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <input type="text" placeholder="Search...">
-            
+
         </div>
         <main class="main_content">
             {% block bodycontent %}{% endblock %}

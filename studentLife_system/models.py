@@ -6,75 +6,96 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
 
 
-
 def validate_file_extension(value):
-    valid_extensions = ('.pdf', '.docx', '.jpg', '.jpeg', '.png', '.gif')
+    valid_extensions = (".pdf", ".docx", ".jpg", ".jpeg", ".png", ".gif")
     if not value.name.lower().endswith(valid_extensions):
-        raise ValidationError('Only .pdf, .docx, .jpg, .jpeg, .png, and .gif files are allowed.')
-    
+        raise ValidationError(
+            "Only .pdf, .docx, .jpg, .jpeg, .png, and .gif files are allowed."
+        )
+
+
 class Officer(models.Model):
-    student_id = models.CharField( primary_key=True, max_length=20)
-    Officer_profile_picture = models.FileField(upload_to='Officer_Profile/', validators=[validate_file_extension])
+    student_id = models.CharField(primary_key=True, max_length=20)
+    Officer_profile_picture = models.FileField(
+        upload_to="Officer_Profile/", validators=[validate_file_extension]
+    )
     surname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100)
 
-    course = models.CharField(max_length=50, choices=[
-        ('BSIT', 'BSIT'),
-        ('BSIE', 'BSIE'),
-        ('BIT-COMPTECH', 'BIT-COMPTECH'),
-        ('BIT-GARMENTS', 'BIT-GARMENTS'),
-        ('BIT-AUTOMOTIVE', 'BIT-AUTOMOTIVE'),
-        ('BIT-DRAFTING', 'BIT-DRAFTING'),
-        ('BIT-ELECTRONICS', 'BIT-ELECTRONICS'),
-        ('BEED','BEED'),
-        ('BSED-MATH','BSED-MATH'),
-        ('BTLED','BTLED'),
-        ('BSF','BSF'),
-        ('BSA','BSA'),
-        ('BAL','BAL'),
-        ('BAEL','BAEL'),
-        ('BS-PSYCHOLOGY','BS-PSYCHOLOGY'),
-        ('BSHM','BSHM'),
-        ('BSTM','BSTM'),
-    ], default='')
+    course = models.CharField(
+        max_length=50,
+        choices=[
+            ("BSIT", "BSIT"),
+            ("BSIE", "BSIE"),
+            ("BIT-COMPTECH", "BIT-COMPTECH"),
+            ("BIT-GARMENTS", "BIT-GARMENTS"),
+            ("BIT-AUTOMOTIVE", "BIT-AUTOMOTIVE"),
+            ("BIT-DRAFTING", "BIT-DRAFTING"),
+            ("BIT-ELECTRONICS", "BIT-ELECTRONICS"),
+            ("BEED", "BEED"),
+            ("BSED-MATH", "BSED-MATH"),
+            ("BTLED", "BTLED"),
+            ("BSF", "BSF"),
+            ("BSA", "BSA"),
+            ("BAL", "BAL"),
+            ("BAEL", "BAEL"),
+            ("BS-PSYCHOLOGY", "BS-PSYCHOLOGY"),
+            ("BSHM", "BSHM"),
+            ("BSTM", "BSTM"),
+        ],
+        default="",
+    )
 
-    year = models.CharField(max_length=50, choices=[
-        ('1st', '1st'),
-        ('2nd', '2nd'),
-        ('3rd', '3rd'),
-        ('4th', '4th'),
-        ('Irregular', 'Irregular'),
-    ], default='')
+    year = models.CharField(
+        max_length=50,
+        choices=[
+            ("1st", "1st"),
+            ("2nd", "2nd"),
+            ("3rd", "3rd"),
+            ("4th", "4th"),
+            ("Irregular", "Irregular"),
+        ],
+        default="",
+    )
 
     mobile_number = models.CharField(max_length=15)
     position = models.CharField(max_length=100)
 
-    organization = models.CharField(max_length=30, choices=[
-        ('SSG', 'SSG'),
-        ('FSTLP', 'FSTLP'),
-        ('SI++', 'SI++'),
-        ('THE EQUATIONERS', 'THE EQUATIONERS'),
-        ('TECHNOCRATS', 'TECHNOCRATS'),
-    ])
-    
+    organization = models.CharField(
+        max_length=30,
+        choices=[
+            ("SSG", "SSG"),
+            ("FSTLP", "FSTLP"),
+            ("SI++", "SI++"),
+            ("THE EQUATIONERS", "THE EQUATIONERS"),
+            ("TECHNOCRATS", "TECHNOCRATS"),
+        ],
+    )
+
     town_address = models.CharField(max_length=200)
     home_address = models.CharField(max_length=200)
     age = models.PositiveIntegerField()
     place_of_birth = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     nationality = models.CharField(max_length=50)
-    civil_status = models.CharField(max_length=10, choices=[
-        ('Single', 'Single'),
-        ('Married', 'Married'),
-        ('Widowed', 'Widowed'),
-        ('Separated', 'Separated'),
-        ('Divorced', 'Divorced'),
-    ])
-    sex = models.CharField(max_length=10, choices=[
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-    ])
+    civil_status = models.CharField(
+        max_length=10,
+        choices=[
+            ("Single", "Single"),
+            ("Married", "Married"),
+            ("Widowed", "Widowed"),
+            ("Separated", "Separated"),
+            ("Divorced", "Divorced"),
+        ],
+    )
+    sex = models.CharField(
+        max_length=10,
+        choices=[
+            ("Male", "Male"),
+            ("Female", "Female"),
+        ],
+    )
     height = models.FloatField()
     distinguishing_mark = models.CharField(max_length=200, blank=True, null=True)
     weight = models.FloatField()
@@ -86,7 +107,7 @@ class Officer(models.Model):
     father_occupation = models.CharField(max_length=100, blank=True, null=True)
     father_address = models.CharField(max_length=200, blank=True, null=True)
     father_mobile_number = models.CharField(max_length=15, blank=True, null=True)
-    
+
     mother_name = models.CharField(max_length=100, blank=True, null=True)
     mother_occupation = models.CharField(max_length=100, blank=True, null=True)
     mother_address = models.CharField(max_length=200, blank=True, null=True)
@@ -102,12 +123,12 @@ class Officer(models.Model):
     tertiary_address = models.CharField(max_length=200, blank=True, null=True)
     tertiary_degree_level = models.CharField(max_length=100, blank=True, null=True)
     tertiary_date = models.DateField(blank=True, null=True)
-    
+
     secondary_institution = models.CharField(max_length=200, blank=True, null=True)
     secondary_address = models.CharField(max_length=200, blank=True, null=True)
     secondary_degree_level = models.CharField(max_length=100, blank=True, null=True)
     secondary_date = models.DateField(blank=True, null=True)
-    
+
     elementary_institution = models.CharField(max_length=200, blank=True, null=True)
     elementary_address = models.CharField(max_length=200, blank=True, null=True)
     elementary_degree_level = models.CharField(max_length=100, blank=True, null=True)
@@ -117,19 +138,19 @@ class Officer(models.Model):
     membership_position1 = models.CharField(max_length=100, blank=True, null=True)
     membership_organization1 = models.CharField(max_length=200, blank=True, null=True)
     membership_date1 = models.DateField(blank=True, null=True)
-    
+
     membership_position2 = models.CharField(max_length=100, blank=True, null=True)
     membership_organization2 = models.CharField(max_length=200, blank=True, null=True)
     membership_date2 = models.DateField(blank=True, null=True)
-    
+
     membership_position3 = models.CharField(max_length=100, blank=True, null=True)
     membership_organization3 = models.CharField(max_length=200, blank=True, null=True)
     membership_date3 = models.DateField(blank=True, null=True)
-    
+
     membership_position4 = models.CharField(max_length=100, blank=True, null=True)
     membership_organization4 = models.CharField(max_length=200, blank=True, null=True)
     membership_date4 = models.DateField(blank=True, null=True)
-    
+
     membership_position5 = models.CharField(max_length=100, blank=True, null=True)
     membership_organization5 = models.CharField(max_length=200, blank=True, null=True)
     membership_date5 = models.DateField(blank=True, null=True)
@@ -137,84 +158,98 @@ class Officer(models.Model):
     # Seminars
     seminar_title1 = models.CharField(max_length=200, blank=True, null=True)
     seminar_date1 = models.DateField(blank=True, null=True)
-    
+
     seminar_title2 = models.CharField(max_length=200, blank=True, null=True)
     seminar_date2 = models.DateField(blank=True, null=True)
-    
+
     seminar_title3 = models.CharField(max_length=200, blank=True, null=True)
     seminar_date3 = models.DateField(blank=True, null=True)
-    
+
     seminar_title4 = models.CharField(max_length=200, blank=True, null=True)
     seminar_date4 = models.DateField(blank=True, null=True)
-    
+
     seminar_title5 = models.CharField(max_length=200, blank=True, null=True)
     seminar_date5 = models.DateField(blank=True, null=True)
 
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('declined', 'Declined'),
-        ('terminated', 'Terminated'),
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("declined", "Declined"),
+        ("terminated", "Terminated"),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
 
     def __str__(self):
         return f"{self.student_id}, {self.surname} {self.firstname} {self.middlename}"
 
+
 class OfficerLogin(models.Model):
-    student_id = models.OneToOneField(Officer, on_delete=models.CASCADE, primary_key=True)
+    student_id = models.OneToOneField(
+        Officer, on_delete=models.CASCADE, primary_key=True
+    )
     ORG_CHOICES = [
-        ('SSG', 'SSG'),
-        ('FSTLP', 'FSTLP'),
-        ('SI++', 'SI++'),
-        ('THE EQUATIONERS', 'THE EQUATIONERS'),
-        ('TECHNOCRATS', 'TECHNOCRATS'),
+        ("SSG", "SSG"),
+        ("FSTLP", "FSTLP"),
+        ("SI++", "SI++"),
+        ("THE EQUATIONERS", "THE EQUATIONERS"),
+        ("TECHNOCRATS", "TECHNOCRATS"),
     ]
     organization = models.CharField(max_length=20, choices=ORG_CHOICES)
-    course = models.CharField(max_length=50, choices=[
-        ('BSIT', 'BSIT'),
-        ('BSIE', 'BSIE'),
-        ('BIT-COMPTECH', 'BIT-COMPTECH'),
-        ('BIT-GARMENTS', 'BIT-GARMENTS'),
-        ('BIT-AUTOMOTIVE', 'BIT-AUTOMOTIVE'),
-        ('BIT-DRAFTING', 'BIT-DRAFTING'),
-        ('BIT-ELECTRONICS', 'BIT-ELECTRONICS'),
-        ('BEED','BEED'),
-        ('BSED-MATH','BSED-MATH'),
-        ('BTLED','BTLED'),
-        ('BSF','BSF'),
-        ('BSA','BSA'),
-        ('BAL','BAL'),
-        ('BAEL','BAEL'),
-        ('BS-PSYCHOLOGY','BS-PSYCHOLOGY'),
-        ('BSHM','BSHM'),
-        ('BSTM','BSTM'),
-    ], default='')
+    course = models.CharField(
+        max_length=50,
+        choices=[
+            ("BSIT", "BSIT"),
+            ("BSIE", "BSIE"),
+            ("BIT-COMPTECH", "BIT-COMPTECH"),
+            ("BIT-GARMENTS", "BIT-GARMENTS"),
+            ("BIT-AUTOMOTIVE", "BIT-AUTOMOTIVE"),
+            ("BIT-DRAFTING", "BIT-DRAFTING"),
+            ("BIT-ELECTRONICS", "BIT-ELECTRONICS"),
+            ("BEED", "BEED"),
+            ("BSED-MATH", "BSED-MATH"),
+            ("BTLED", "BTLED"),
+            ("BSF", "BSF"),
+            ("BSA", "BSA"),
+            ("BAL", "BAL"),
+            ("BAEL", "BAEL"),
+            ("BS-PSYCHOLOGY", "BS-PSYCHOLOGY"),
+            ("BSHM", "BSHM"),
+            ("BSTM", "BSTM"),
+        ],
+        default="",
+    )
     username = models.CharField(max_length=100, unique=True, null=False, blank=False)
     password = models.CharField(max_length=128, null=False, blank=False)
 
     def __str__(self):
         return f"OfficerLogin {self.student_id}"
-    
+
+
 class Adviser(models.Model):
-    Adviser_profile_picture = models.FileField(upload_to='Adviser_Profile/', validators=[validate_file_extension])
+    Adviser_profile_picture = models.FileField(
+        upload_to="Adviser_Profile/", validators=[validate_file_extension]
+    )
     surname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100)
-    department = models.CharField(max_length=50, choices=[
-        ('BSIT', 'BSIT'),
-        ('BSIE', 'BSIE'),
-        ('BIT', 'BIT'),
-    ], default='')
+    department = models.CharField(
+        max_length=50,
+        choices=[
+            ("BSIT", "BSIT"),
+            ("BSIE", "BSIE"),
+            ("BIT", "BIT"),
+        ],
+        default="",
+    )
     ORG_CHOICES = [
-        ('SSG', 'SSG'),
-        ('FSTLP', 'FSTLP'),
-        ('SI++', 'SI++'),
-        ('THE EQUATIONERS', 'THE EQUATIONERS'),
-        ('TECHNOCRATS', 'TECHNOCRATS'),
+        ("SSG", "SSG"),
+        ("FSTLP", "FSTLP"),
+        ("SI++", "SI++"),
+        ("THE EQUATIONERS", "THE EQUATIONERS"),
+        ("TECHNOCRATS", "TECHNOCRATS"),
     ]
     organization = models.CharField(max_length=20, choices=ORG_CHOICES)
-    
+
     date_employed = models.DateField()
     number_of_years = models.PositiveIntegerField()
     town_address = models.CharField(max_length=190)
@@ -226,29 +261,31 @@ class Adviser(models.Model):
     place_of_birth = models.CharField(max_length=100)
     age = models.PositiveIntegerField()
     nationality = models.CharField(max_length=50)
-    sex = models.CharField(max_length=10, choices=[
-        ('Male', 'Male'),
-        ('Female', 'Female')
-    ])
-    civil_status = models.CharField(max_length=10, choices=[
-        ('Single', 'Single'),
-        ('Married', 'Married'),
-        ('Widowed', 'Widowed'),
-        ('Separated', 'Separated'),
-        ('Divorced', 'Divorced')
-    ])
+    sex = models.CharField(
+        max_length=10, choices=[("Male", "Male"), ("Female", "Female")]
+    )
+    civil_status = models.CharField(
+        max_length=10,
+        choices=[
+            ("Single", "Single"),
+            ("Married", "Married"),
+            ("Widowed", "Widowed"),
+            ("Separated", "Separated"),
+            ("Divorced", "Divorced"),
+        ],
+    )
     height = models.FloatField()
     weight = models.FloatField()
     distinguishing_mark = models.CharField(max_length=100, blank=True, null=True)
     hobbies = models.CharField(max_length=100, blank=True, null=True)
     special_talent = models.CharField(max_length=100, blank=True, null=True)
-    
+
     # Parents' information
     father_name = models.CharField(max_length=100, blank=True, null=True)
     father_occupation = models.CharField(max_length=100, blank=True, null=True)
     father_address = models.CharField(max_length=190, blank=True, null=True)
     father_mobile_number = models.CharField(max_length=15, blank=True, null=True)
-    
+
     mother_name = models.CharField(max_length=100, blank=True, null=True)
     mother_occupation = models.CharField(max_length=100, blank=True, null=True)
     mother_address = models.CharField(max_length=190, blank=True, null=True)
@@ -259,249 +296,277 @@ class Adviser(models.Model):
     spouse_occupation = models.CharField(max_length=100, blank=True, null=True)
     spouse_address = models.CharField(max_length=190, blank=True, null=True)
     spouse_mobile_number = models.CharField(max_length=15, blank=True, null=True)
-    
+
     # Educational background
     first_institution = models.CharField(max_length=100, blank=True, null=True)
     first_address = models.CharField(max_length=190, blank=True, null=True)
     first_degree_level = models.CharField(max_length=100, blank=True, null=True)
     first_date = models.DateField(blank=True, null=True)
-    
+
     second_institution = models.CharField(max_length=100, blank=True, null=True)
     second_address = models.CharField(max_length=190, blank=True, null=True)
     second_degree_level = models.CharField(max_length=100, blank=True, null=True)
     second_date = models.DateField(blank=True, null=True)
-    
+
     third_institution = models.CharField(max_length=100, blank=True, null=True)
     third_address = models.CharField(max_length=190, blank=True, null=True)
     third_degree_level = models.CharField(max_length=100, blank=True, null=True)
     third_date = models.DateField(blank=True, null=True)
-    
+
     fourth_institution = models.CharField(max_length=100, blank=True, null=True)
     fourth_address = models.CharField(max_length=190, blank=True, null=True)
     fourth_degree_level = models.CharField(max_length=100, blank=True, null=True)
     fourth_date = models.DateField(blank=True, null=True)
-    
+
     fifth_institution = models.CharField(max_length=100, blank=True, null=True)
     fifth_address = models.CharField(max_length=190, blank=True, null=True)
     fifth_degree_level = models.CharField(max_length=100, blank=True, null=True)
     fifth_date = models.DateField(blank=True, null=True)
-    
+
     # Work experience
     work_institution1 = models.CharField(max_length=100, blank=True, null=True)
     work_position1 = models.CharField(max_length=100, blank=True, null=True)
     work_period1 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     work_institution2 = models.CharField(max_length=100, blank=True, null=True)
     work_position2 = models.CharField(max_length=100, blank=True, null=True)
     work_period2 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     work_institution3 = models.CharField(max_length=100, blank=True, null=True)
     work_position3 = models.CharField(max_length=100, blank=True, null=True)
     work_period3 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     work_institution4 = models.CharField(max_length=100, blank=True, null=True)
     work_position4 = models.CharField(max_length=100, blank=True, null=True)
     work_period4 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     work_institution5 = models.CharField(max_length=100, blank=True, null=True)
     work_position5 = models.CharField(max_length=100, blank=True, null=True)
     work_period5 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     # Membership in organizations
     org_name1 = models.CharField(max_length=100, blank=True, null=True)
     org_position1 = models.CharField(max_length=100, blank=True, null=True)
     org_period1 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     org_name2 = models.CharField(max_length=100, blank=True, null=True)
     org_position2 = models.CharField(max_length=100, blank=True, null=True)
     org_period2 = models.CharField(max_length=100, blank=True, null=True)
-    
+
     # Advisory roles
     advisory1 = models.CharField(max_length=100, blank=True, null=True)
     inclusive_advisory1 = models.DateField(blank=True, null=True)
-    
+
     advisory2 = models.CharField(max_length=100, blank=True, null=True)
     inclusive_advisory2 = models.DateField(blank=True, null=True)
-    
+
     advisory3 = models.CharField(max_length=100, blank=True, null=True)
     inclusive_advisory3 = models.DateField(blank=True, null=True)
 
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('declined', 'Declined'),
-        ('terminated', 'Terminated'),
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("declined", "Declined"),
+        ("terminated", "Terminated"),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
 
-    
+
 def __str__(self):
     return f"{self.surname}, {self.firstname} {self.middlename}"
 
 
-    
 class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
     objective = models.CharField(max_length=255)
     activities = models.TextField()
 
     org_choices = [
-        ('SSG', 'SSG'),
-        ('FSTLP', 'FSTLP'),
-        ('SI++', 'SI++'),
-        ('THE EQUATIONERS', 'THE EQUATIONERS'),
-        ('TECHNOCRATS', 'TECHNOCRATS'),
+        ("SSG", "SSG"),
+        ("FSTLP", "FSTLP"),
+        ("SI++", "SI++"),
+        ("THE EQUATIONERS", "THE EQUATIONERS"),
+        ("TECHNOCRATS", "TECHNOCRATS"),
     ]
-    org = models.CharField(max_length=15, choices=org_choices, default='')
+    org = models.CharField(max_length=15, choices=org_choices, default="")
 
     target_choices = [
-        ('Q1', 'Q1'),
-        ('Q2', 'Q2'),
-        ('Q3', 'Q3'),
-        ('Q4', 'Q4'),
+        ("Q1", "Q1"),
+        ("Q2", "Q2"),
+        ("Q3", "Q3"),
+        ("Q4", "Q4"),
     ]
     target = models.CharField(max_length=2, choices=target_choices)
     involved_officer = models.CharField(max_length=100)
-    p_budget = models.DecimalField(max_digits=15, decimal_places=2, default='0')
+    p_budget = models.DecimalField(max_digits=15, decimal_places=2, default="0")
     expected_output = models.TextField()
-    actual_accomplishment = models.FileField(upload_to='projects/', validators=[validate_file_extension], blank=True, null=True)
+    actual_accomplishment = models.FileField(
+        upload_to="projects/",
+        validators=[validate_file_extension],
+        blank=True,
+        null=True,
+    )
     remarks = models.TextField()
 
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('declined', 'Declined'),
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("declined", "Declined"),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
     date_saved = models.DateTimeField(auto_now_add=True)
- 
 
-    
     def __str__(self):
         return self.objective
-    
+
 
 class FinancialStatement(models.Model):
     financial_id = models.AutoField(primary_key=True)
     date = models.DateField()
     purpose = models.CharField(max_length=255)
     source_of_funds = models.CharField(max_length=255)
-    
+
     org_choices = [
-        ('SSG', 'SSG'),
-        ('FSTLP', 'FSTLP'),
-        ('SI++', 'SI++'),
-        ('THE EQUATIONERS', 'THE EQUATIONERS'),
-        ('TECHNOCRATS', 'TECHNOCRATS'),
+        ("SSG", "SSG"),
+        ("FSTLP", "FSTLP"),
+        ("SI++", "SI++"),
+        ("THE EQUATIONERS", "THE EQUATIONERS"),
+        ("TECHNOCRATS", "TECHNOCRATS"),
     ]
-    org = models.CharField(max_length=15, choices=org_choices, default='')
+    org = models.CharField(max_length=15, choices=org_choices, default="")
 
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     remarks = models.TextField()
-    
+
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('declined', 'Declined'),
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("declined", "Declined"),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
     date_saved = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.date} - {self.purpose}"
 
- 
-    
+
 class Accreditation(models.Model):
     ORG_CHOICES = [
-        ('SSG', 'SSG'),
-        ('FSTLP', 'FSTLP'),
-        ('SI++', 'SI++'),
-        ('THE EQUATIONERS', 'THE EQUATIONERS'),
-        ('TECHNOCRATS', 'TECHNOCRATS'),
+        ("SSG", "SSG"),
+        ("FSTLP", "FSTLP"),
+        ("SI++", "SI++"),
+        ("THE EQUATIONERS", "THE EQUATIONERS"),
+        ("TECHNOCRATS", "TECHNOCRATS"),
     ]
-    
+
     accreditation_id = models.AutoField(primary_key=True)
     organization = models.CharField(max_length=20, choices=ORG_CHOICES)
 
-    letter_of_intent = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    list_of_officers = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    certificate_of_registration = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    
-    list_of_members = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    accomplishment_report = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    calendar_of_activities = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    financial_statement = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    bank_passbook = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    inventory_of_properties = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    organization_bylaws = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    faculty_adviser_appointment = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
-    other_documents = models.FileField(upload_to='accreditation/', validators=[validate_file_extension])
+    letter_of_intent = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    list_of_officers = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    certificate_of_registration = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+
+    list_of_members = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    accomplishment_report = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    calendar_of_activities = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    financial_statement = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    bank_passbook = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    inventory_of_properties = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    organization_bylaws = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    faculty_adviser_appointment = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
+    other_documents = models.FileField(
+        upload_to="accreditation/", validators=[validate_file_extension]
+    )
 
     STATUS_CHOICES = [
-            ('pending', 'Pending'),
-            ('approved', 'Approved'),
-            ('declined', 'Declined'),
-        ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+        ("declined", "Declined"),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
     date_saved = models.DateTimeField(auto_now_add=True)
-   
 
     def __str__(self):
         return f"Accreditation {self.accreditation_id} - {self.organization}"
 
 
-
 class AdminLogin(models.Model):
     admin_id = models.AutoField(primary_key=True)
-    admin_username = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    admin_username = models.CharField(
+        max_length=50, null=False, blank=False, unique=True
+    )
     admin_password = models.CharField(max_length=128, null=False, blank=False)
 
     def __str__(self):
         return f"Adminlogin {self.admin_id}"
 
+
 class studentInfo(models.Model):
     studID = models.IntegerField(primary_key=True)
-    lrn = models.CharField(max_length = 12)
-    lastname = models.CharField(max_length = 100)
-    firstname = models.CharField( max_length = 100)
-    middlename = models.CharField(max_length = 50)
-    degree = models.CharField(max_length = 150)
-    yearlvl = models.CharField(max_length = 10)
-    sex = models.CharField(max_length = 10)
+    lrn = models.CharField(max_length=12)
+    lastname = models.CharField(max_length=100)
+    firstname = models.CharField(max_length=100)
+    middlename = models.CharField(max_length=50)
+    degree = models.CharField(max_length=150)
+    yearlvl = models.CharField(max_length=10)
+    sex = models.CharField(max_length=10)
     emailadd = models.EmailField()
-    contact = models.CharField(max_length = 11)
+    contact = models.CharField(max_length=11)
 
     def __str__(self):
         return f"{self.studID} {self.lastname} {self.firstname}"
-    
-    class Meta:
-        ordering = ['lastname']  
 
-#REQUEST FOR GOODMORAL
+    class Meta:
+        ordering = ["lastname"]
+
+
+# REQUEST FOR GOODMORAL
 class RequestedGMC(models.Model):
     student = models.ForeignKey(studentInfo, on_delete=models.CASCADE)
     reason = models.TextField()
     or_num = models.CharField(max_length=100, null=True, blank=True)
     request_date = models.DateTimeField(auto_now_add=True)
-    processed = models.BooleanField(default=False)  
-    
+    processed = models.BooleanField(default=False)
+
     def __str__(self):
         return f"GMC Request for {self.student} - {self.reason}"
 
-# MONTHLY CALENDAR OF ACTIVITIES  
+
+# MONTHLY CALENDAR OF ACTIVITIES
 class Schedule(models.Model):
     sched_Id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
-   
-    
+
     def __str__(self):
         return f"{self.sched_Id} {self.title}"
 
-#EQUIPMENT TRACKER
+
+# EQUIPMENT TRACKER
 class Equipment(models.Model):
     itemId = models.AutoField(primary_key=True)
     equipmentName = models.CharField(max_length=255)
@@ -510,12 +575,13 @@ class Equipment(models.Model):
     def __str__(self):
         return f"{self.equipmentName} {self.equipmentSN}"
 
-#PPMP TRACKER
+
+# PPMP TRACKER
 class ProcurementItem(models.Model):
     itemid = models.AutoField(primary_key=True)
     item = models.CharField(max_length=255)
     quantity = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    unit = models.CharField(max_length=50, default='your_default_value')
+    unit = models.CharField(max_length=50, default="your_default_value")
     estimated_budget = models.DecimalField(max_digits=10, decimal_places=2)
     mode_of_procurement = models.CharField(max_length=255)
     jan = models.IntegerField(default=0)
@@ -532,40 +598,51 @@ class ProcurementItem(models.Model):
     dec = models.IntegerField(default=0)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    #adding field para sa status: for purchase, purchased, delivered
+    # adding field para sa status: for purchase, purchased, delivered
     STATUS_CHOICES = (
-        ('for_purchase', 'For Purchase'),
-        ('purchased','Purchased'),
-        ('delivered', 'Delivered'),
+        ("for_purchase", "For Purchase"),
+        ("purchased", "Purchased"),
+        ("delivered", "Delivered"),
     )
 
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='for_purchase')
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default="for_purchase"
+    )
 
     def __str__(self):
         return self.item
 
-#subukan ulit huhu
+
+# subukan ulit huhu
 class Storage(models.Model):
     procurement_item = models.OneToOneField(ProcurementItem, on_delete=models.CASCADE)
     serial_no = models.CharField(max_length=255, null=True, blank=True)
 
-#learning & development
+
+# learning & development
 class ExcelData(models.Model):
     title_of_l_d = models.CharField("Title of L & D", max_length=255)
-    frequency = models.CharField("Frequency (Annual, Semi-Annual, Quarterly)", max_length=255)
-    category = models.CharField("Category (International, National & Regional/Local)", max_length=255)
-    expected_number_of_participants = models.CharField("Expected Number of Participants", max_length=255)
+    frequency = models.CharField(
+        "Frequency (Annual, Semi-Annual, Quarterly)", max_length=255
+    )
+    category = models.CharField(
+        "Category (International, National & Regional/Local)", max_length=255
+    )
+    expected_number_of_participants = models.CharField(
+        "Expected Number of Participants", max_length=255
+    )
     duration = models.CharField("Duration", max_length=255)
     registration_fees = models.CharField("Registration Fees", max_length=255)
-    travelling_expenses = models.CharField("Travelling Expenses (Per Diem and Transportation)", max_length=255)
+    travelling_expenses = models.CharField(
+        "Travelling Expenses (Per Diem and Transportation)", max_length=255
+    )
     planned_total_budget = models.CharField("Planned Total Budget", max_length=255)
     actual_total_budget = models.CharField("Actual Total Budget", max_length=255)
 
-    #HERE ANG NAPUNO TO SOLVE FOR THE DIFFERENCE pati remarks
+    # HERE ANG NAPUNO TO SOLVE FOR THE DIFFERENCE pati remarks
     variance = models.FloatField(null=True, blank=True)
     admin_remarks = models.TextField(null=True, blank=True, max_length=2000)
-    
-    
+
     @classmethod
     def create_total_labels(cls):
         cls.objects.create(
@@ -578,15 +655,18 @@ class ExcelData(models.Model):
             travelling_expenses="",
             planned_total_budget="",
             actual_total_budget="",
-            variance=None,    #napuno pd ne syaaa
+            variance=None,  # napuno pd ne syaaa
         )
 
     def save(self, *args, **kwargs):
         # Calculate variance before saving
         if self.planned_total_budget and self.actual_total_budget:
-             self.variance = float(self.planned_total_budget) - float(self.actual_total_budget)
+            self.variance = float(self.planned_total_budget) - float(
+                self.actual_total_budget
+            )
         super().save(*args, **kwargs)
-    
+
+
 class BorrowingRecord(models.Model):
     student = models.ForeignKey(studentInfo, on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
@@ -597,11 +677,13 @@ class BorrowingRecord(models.Model):
     def __str__(self):
         return f"{self.student} borrowed {self.equipment} on {self.date_borrowed}"
 
-#Alumni
+
+# Alumni
+
 
 class Alumni(models.Model):
     alumniID = models.AutoField(primary_key=True)
-    student = models.ForeignKey(studentInfo, on_delete=models.CASCADE)    
+    student = models.ForeignKey(studentInfo, on_delete=models.CASCADE)
     alumnidate = models.DateField()
     alumnibirthday = models.DateField()
     alumnicontact = models.CharField(max_length=15)
@@ -609,28 +691,28 @@ class Alumni(models.Model):
     tin = models.CharField(max_length=20)
     parentguardian = models.CharField(max_length=100)
     alumniaddress = models.TextField()
-    firstname = models.CharField(max_length=100, default='')
-    lastname = models.CharField(max_length=100,default='')
-    email_add = models.CharField(max_length=100, null=False,default='')
-    degree = models.CharField(max_length=100, null=False,default='')
-    sex = models.CharField(max_length=10, null=False,default='')
+    firstname = models.CharField(max_length=100, default="")
+    lastname = models.CharField(max_length=100, default="")
+    email_add = models.CharField(max_length=100, null=False, default="")
+    degree = models.CharField(max_length=100, null=False, default="")
+    sex = models.CharField(max_length=10, null=False, default="")
     claimed_date = models.DateTimeField(null=True, blank=True)
     approved = models.BooleanField(default=False)
 
 
 class graduateForm(models.Model):
     alumniID = models.OneToOneField(Alumni, on_delete=models.CASCADE, primary_key=True)
-    student = models.ForeignKey(studentInfo, on_delete=models.CASCADE,default=0) 
+    student = models.ForeignKey(studentInfo, on_delete=models.CASCADE, default=0)
     firstname = models.CharField(max_length=100, null=False)
     lastname = models.CharField(max_length=100, null=False)
-    degree = models.CharField(max_length=100, null=False,default='')
-    sex = models.CharField(max_length=10, null=False,default='')
-    email_add = models.CharField(max_length=100, null=False,default='')
-    contactnum = models.CharField(max_length=100, null=False,default='')
+    degree = models.CharField(max_length=100, null=False, default="")
+    sex = models.CharField(max_length=10, null=False, default="")
+    email_add = models.CharField(max_length=100, null=False, default="")
+    contactnum = models.CharField(max_length=100, null=False, default="")
     alumniaddress = models.CharField(max_length=255, null=False)
     dategraduated = models.DateField(null=False)
     nameoforganization = models.CharField(max_length=255, null=False)
-    employmenttype = models.CharField(max_length=100, default='default_value_here')
+    employmenttype = models.CharField(max_length=100, default="default_value_here")
     occupationalClass = models.CharField(max_length=100, null=False)
     gradscholrelated = models.CharField(max_length=10, null=False)
     yearscompany = models.CharField(max_length=20, null=False)
@@ -649,18 +731,18 @@ class graduateForm(models.Model):
     monthlyincome2 = models.CharField(max_length=50, null=False)
     academicprofession = models.IntegerField(null=False)
     researchcapability = models.IntegerField(null=False)
-    learningefficiency =  models.IntegerField(null=False)
-    peopleskills =models.IntegerField(null=False)
+    learningefficiency = models.IntegerField(null=False)
+    peopleskills = models.IntegerField(null=False)
     problemsolvingskills = models.IntegerField(null=False)
     informationtechnologyskills = models.IntegerField(null=False)
     communityfield = models.IntegerField(null=False)
     globalfield = models.IntegerField(null=False)
-    criticalskills =models.IntegerField(null=False)
+    criticalskills = models.IntegerField(null=False)
     salaryimprovement = models.IntegerField(null=False)
     opportunitiesabroad = models.IntegerField(null=False)
-    personalitydevelopment =models.IntegerField(null=False)
+    personalitydevelopment = models.IntegerField(null=False)
     technologiesvaluesformation = models.IntegerField(null=False)
-    meetingprofessionalneeds = models.CharField(max_length=100, null=False,default='')
+    meetingprofessionalneeds = models.CharField(max_length=100, null=False, default="")
     rangeofcourses = models.CharField(max_length=100, null=False)
     relevanceprofession = models.CharField(max_length=100, null=False)
     extracurricular = models.CharField(max_length=100, null=False)
@@ -679,10 +761,11 @@ class graduateForm(models.Model):
     universityinstitution = models.CharField(max_length=255, null=False)
     studiesAddress = models.CharField(max_length=255, null=False)
     pursuingstudies = models.TextField(null=False)
+
     def alumni_id(self):
         return self.alumni.alumniID
 
-    alumni_id.short_description = 'Alumni ID'
+    alumni_id.short_description = "Alumni ID"
 
 
 class Event(models.Model):
@@ -691,18 +774,19 @@ class Event(models.Model):
     eventsDate = models.DateField()
     eventsLocation = models.CharField(max_length=100)
     eventsDescription = models.TextField()
-    eventsImage = models.ImageField(upload_to='event_images/', null=True, blank=True)
+    eventsImage = models.ImageField(upload_to="event_images/", null=True, blank=True)
+
 
 class JobFair(models.Model):
     jobfair_id = models.AutoField(primary_key=True)
-    jobtitle = models.CharField(max_length=255, default='')
+    jobtitle = models.CharField(max_length=255, default="")
     companyname = models.CharField(max_length=255)
     joblocation = models.CharField(max_length=255)
     employmenttype = models.CharField(max_length=100)
-    jobdescription = models.TextField()  
+    jobdescription = models.TextField()
     jobsalary = models.CharField(max_length=255)
-    applicationdeadline = models.DateField(default=None)  
-    posted_date = models.DateField(default=None) 
+    applicationdeadline = models.DateField(default=None)
+    posted_date = models.DateField(default=None)
 
 
 class Yearbook(models.Model):
@@ -711,12 +795,13 @@ class Yearbook(models.Model):
     yearbookLastname = models.CharField(max_length=100)
     yearbookAddress = models.CharField(max_length=255)
     yearbookCourse = models.CharField(max_length=100)
-    yearbookImage = models.ImageField(upload_to='yearbook_images/')
-    yearbookGender = models.CharField(max_length=100, default='')
+    yearbookImage = models.ImageField(upload_to="yearbook_images/")
+    yearbookGender = models.CharField(max_length=100, default="")
     yearbookYearGrad = models.IntegerField(default=0)
+
     def __str__(self):
-        return f"{self.yearbookFirstname} {self.yearbookLastname}"  
-    
+        return f"{self.yearbookFirstname} {self.yearbookLastname}"
+
 
 class exit_interview_db(models.Model):
     exitinterviewId = models.AutoField(primary_key=True)
@@ -990,7 +1075,7 @@ class IndividualProfileBasicInfo(models.Model):
         ("relatives", "Relative(s)"),
     ]
     sourceOfIncome = models.CharField(max_length=30, choices=sourceOfIncomeChoices)
-    sourceOfIncomeSpecify = models.CharField(max_length=255,default='')
+    sourceOfIncomeSpecify = models.CharField(max_length=255, default="")
 
     parentsOccupationChoices = [
         ("agriculture", "Agriculture, Food and Natural Resources"),
@@ -1019,14 +1104,14 @@ class IndividualProfileBasicInfo(models.Model):
     motherOtherOccupation = models.CharField(max_length=255, default="")
 
     familyEarningInaMonthChoices = [
-        ('below1000','below P 1,000'),
-        ('1000-5000','P 1,000 - P 5,000'),
-        ('11000-15000','P 11,000 - P 15,000'),
-        ('16000-20000','P 16,000 - P 20,000'),
-        ('21000-25000','P 21,000 - P 25,000'),
-        ('26000-30000','P 26,000 - P 30,000'),
-        ('31000-40000','P 31,000 - P 40,000'),
-        ('41000andabove','P 41,000 and above'),
+        ("below1000", "below P 1,000"),
+        ("1000-5000", "P 1,000 - P 5,000"),
+        ("11000-15000", "P 11,000 - P 15,000"),
+        ("16000-20000", "P 16,000 - P 20,000"),
+        ("21000-25000", "P 21,000 - P 25,000"),
+        ("26000-30000", "P 26,000 - P 30,000"),
+        ("31000-40000", "P 31,000 - P 40,000"),
+        ("41000andabove", "P 41,000 and above"),
     ]
 
     familyEarningInaMonth = models.CharField(
@@ -1034,13 +1119,13 @@ class IndividualProfileBasicInfo(models.Model):
     )
 
     parentStatusChoices = [
-        ('together&married','Living together and legally married'),
-        ('together&notmarried','Living together and not legally married'),
-        ('marriedbutseparate','Legally married but living separetely'),
-        ('mohterofw','Mother is OFW'),
-        ('fatherofw','Father is OFW'),
-        ('fatherwanother','Father w/ Another Partner'),
-        ('motherwanother','Mother w/ Another Partner'),
+        ("together&married", "Living together and legally married"),
+        ("together&notmarried", "Living together and not legally married"),
+        ("marriedbutseparate", "Legally married but living separetely"),
+        ("mohterofw", "Mother is OFW"),
+        ("fatherofw", "Father is OFW"),
+        ("fatherwanother", "Father w/ Another Partner"),
+        ("motherwanother", "Mother w/ Another Partner"),
     ]
 
     parentStatus = models.CharField(max_length=50, choices=parentStatusChoices)
@@ -1202,3 +1287,66 @@ class GuidanceTransaction(models.Model):
     transactionOrigin = models.CharField(max_length=255)
     transactionType = models.CharField(max_length=255)
     transactionDate = models.DateField(max_length=255)
+
+
+class Program(models.Model):
+    title = models.CharField(max_length=255)
+    caption = models.CharField(max_length=1000)
+    date_time = models.DateTimeField(auto_now_add=True)
+    archive = models.BooleanField(default=False)
+    image_upload = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return self.title
+
+
+class Projects(models.Model):
+    title = models.CharField(max_length=255)
+    caption = models.CharField(max_length=1000)
+    date_time = models.DateTimeField(auto_now_add=True)
+    archive = models.BooleanField(default=False)
+    image_upload = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return self.title
+
+
+class MOD(models.Model):
+    donated = models.CharField(max_length=255)
+    name = models.CharField(max_length=150)
+
+    donation_type = models.CharField(max_length=10)
+    gcash_number = models.CharField(max_length=11)
+
+    bank_number = models.CharField(max_length=11)
+    bank_card = models.CharField(max_length=20)
+
+    image_details = models.ImageField(upload_to="images/")
+    status = models.CharField(max_length=10, null=True, blank=True)
+
+    amount = models.IntegerField(default=0)
+    date = models.DateField(auto_now_add=True)
+
+    what_kind = models.CharField(max_length=20)
+    recepient = models.CharField(max_length=20, default="")
+    recepient_things = models.CharField(max_length=20, default="")
+    contact_number = models.CharField(max_length=11)
+    date_sched = models.CharField(max_length=20, default="")
+
+    def __str__(self):
+        return self.name
+
+
+class QrDonation(models.Model):
+    qr_id = models.AutoField(primary_key=True)
+    gcash = models.ImageField(upload_to="images/")
+    bpi = models.ImageField(upload_to="images/")
+    bdo = models.ImageField(upload_to="images/")
+    landbank = models.ImageField(upload_to="images/")
+    pnb = models.ImageField(upload_to="images/")
+    metro = models.ImageField(upload_to="images/")
+    union = models.ImageField(upload_to="images/")
+    china = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return f"{self.qr_id}"
